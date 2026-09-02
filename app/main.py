@@ -3,16 +3,13 @@ import os
 import uvicorn
 from dotenv import load_dotenv
 from fastapi import FastAPI
+from app.routers.main_routes import mainrouter
 
 load_dotenv()
 
-app = FastAPI()
+app = FastAPI(title="Recommendation API", description="API for AI services", version="1.0.0")
 
-
-@app.get("/")
-def read_root():
-    return {"message": "Hello AI"}
-
+app.include_router(mainrouter, prefix="/api/v1")
 
 if __name__ == "__main__":
     host = os.getenv("HOST", "127.0.0.1")
